@@ -54,7 +54,8 @@ const STATUS_ORDER = ["all", "new", "assigned", "waiting_on_customer", "resolved
 const state = {
   data: null,
   selectedConversationId: null,
-  filterStatus: "all"
+  filterStatus: "all",
+  activeView: "showcase"
 };
 
 const metricsEl = document.getElementById("metrics");
@@ -66,6 +67,8 @@ const intakeForm = document.getElementById("intake-form");
 const routingResultEl = document.getElementById("routing-result");
 const demoScenariosEl = document.getElementById("demo-scenarios");
 const resetDemoButton = document.getElementById("reset-demo");
+const showcaseViewEl = document.getElementById("showcase-view");
+const operationsViewEl = document.getElementById("operations-view");
 
 function formatSource(value) {
   return String(value || "")
@@ -99,6 +102,16 @@ function showResult(message, tone = "success") {
   if (tone === "error") {
     routingResultEl.classList.add("error");
   }
+}
+
+function setActiveView(view) {
+  state.activeView = view;
+  showcaseViewEl.classList.toggle("hidden", view !== "showcase");
+  operationsViewEl.classList.toggle("hidden", view !== "operations");
+
+  document.querySelectorAll("[data-view-tab]").forEach((button) => {
+    button.classList.toggle("active", button.getAttribute("data-view-tab") === view);
+  });
 }
 
 function filteredConversations() {
@@ -156,11 +169,9 @@ function renderMetrics() {
 function renderFilters() {
   const counts = state.data.metrics.countByStatus;
   ticketFiltersEl.innerHTML = STATUS_ORDER.map((status) => {
-    const count =
-      status === "all"
-        ? state.data.metrics.conversations
-        : counts[status];
+    const count = status === "all" ? state.data.metrics.conversations : counts[status];
     const active = status === state.filterStatus;
+
     return `
       <button
         class="filter-chip ${active ? "active" : ""}"
@@ -293,6 +304,7 @@ function renderConversationDetail() {
     .map((status) => {
       const active = status === conversation.status;
       const locked = conversation.status === "closed" && status !== "closed";
+
       return `
         <button
           type="button"
@@ -306,30 +318,29 @@ function renderConversationDetail() {
     })
     .join("");
 
-  const replyArea =
-    conversation.status === "closed"
-      ? `
-        <div class="closed-note">
-          This ticket is closed. A new customer follow-up for the same order will create a fresh Slack thread in this customer channel.
-        </div>
-      `
-      : `
-        <form id="reply-form" class="reply-form">
-          <label class="full-width">
-            Agent response
-            <textarea name="message" rows="4" placeholder="Share an update or next step." required></textarea>
-          </label>
-          <label>
-            Acting as
-            <input name="actorName" value="Judge Demo Agent" />
-          </label>
-          <label class="checkbox-row">
-            <input type="checkbox" name="sendToCustomer" checked />
-            Send back to the original customer channel
-          </label>
-          <button type="submit" class="primary-button">Post reply</button>
-        </form>
-      `;
+  const replyArea = conversation.status === "closed"
+    ? `
+      <div class="closed-note">
+        This ticket is closed. A new customer follow-up for the same order will create a fresh Slack thread in this customer channel.
+      </div>
+    `
+    : `
+      <form id="reply-form" class="reply-form">
+        <label class="full-width">
+          Agent response
+          <textarea name="message" rows="4" placeholder="Share an update or next step." required></textarea>
+        </label>
+        <label>
+          Acting as
+          <input name="actorName" value="Demo Agent" />
+        </label>
+        <label class="checkbox-row">
+          <input type="checkbox" name="sendToCustomer" checked />
+          Send back to the original customer channel
+        </label>
+        <button type="submit" class="primary-button">Post reply</button>
+      </form>
+    `;
 
   conversationDetailEl.className = "detail-content";
   conversationDetailEl.innerHTML = `
@@ -444,6 +455,7 @@ function renderCustomers() {
 }
 
 function render() {
+  setActiveView(state.activeView);
   renderMetrics();
   renderFilters();
   renderDemoScenarios();
@@ -474,6 +486,7 @@ async function runIntake(payload) {
   state.data = result.state;
   state.selectedConversationId = result.routing.conversationId;
   state.filterStatus = "all";
+  state.activeView = "operations";
   render();
 
   const threadMessage = result.routing.reusedThread
@@ -489,12 +502,19 @@ async function resetDemo() {
   const result = await postJson("/api/reset", {});
   state.data = result.state;
   state.filterStatus = "all";
+  state.activeView = "showcase";
   state.selectedConversationId = state.data.conversations[0]?.id || null;
   render();
   showResult("<strong>Demo reset.</strong><br />Seed data restored for the next walkthrough.");
 }
 
 document.addEventListener("click", async (event) => {
+  const viewTab = event.target.closest("[data-view-tab]");
+  if (viewTab) {
+    setActiveView(viewTab.getAttribute("data-view-tab"));
+    return;
+  }
+
   const conversationCard = event.target.closest("[data-conversation-id]");
   if (conversationCard) {
     state.selectedConversationId = Number(conversationCard.getAttribute("data-conversation-id"));
@@ -547,12 +567,12 @@ document.addEventListener("click", async (event) => {
         `/api/conversations/${conversation.id}/status`,
         {
           status: statusButton.getAttribute("data-status-button"),
-          actorName: "Judge Demo Lead"
+          actorName: "Demo Lead"
         }
       );
       state.data = result.state;
       render();
-      showResult(`<strong>${escapeHtml(result.message)}</strong><br />Slack thread status indicators updated.`);
+      showResult("<strong>Ticket updated.</strong><br />Slack thread status indicators updated.");
     } catch (error) {
       showResult(escapeHtml(error.message), "error");
     } finally {

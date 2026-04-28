@@ -14,9 +14,9 @@
           <h1>CS Simplified</h1>
           <p class="hero-text">
             Meeting customers where they are while keeping support teams inside
-            Slack. The app captures every inbound message, maps it to a customer,
-            routes it into the right Slack channel and thread, and keeps the
-            support record in one place.
+            Slack. CS Simplified captures inbound requests from SMS and social
+            channels, maps them to the right customer, and routes every issue
+            into the right Slack channel and thread.
           </p>
           <div class="hero-chips">
             <span class="chip">SMS inbound</span>
@@ -28,181 +28,204 @@
         </div>
 
         <aside class="hero-note">
-          <p class="section-label">Judge mode</p>
-          <h2>Show the full loop in under 90 seconds</h2>
-          <ol class="judge-steps">
-            <li>Run a demo preset from the left rail.</li>
-            <li>Open the routed ticket and change the status.</li>
-            <li>Send the reply back to the original channel.</li>
-          </ol>
-          <div class="signal-box">
-            <strong>Slack signal</strong>
-            <p>`assigned` adds `:eyes:` and `closed` adds `:white_check_mark:`.</p>
+          <p class="section-label">Product snapshot</p>
+          <h2>Customers stay in-channel. Agents stay in Slack.</h2>
+          <div class="snapshot-list">
+            <article class="snapshot-item">
+              <strong>Capture</strong>
+              <p>Messages arrive from the customer’s native channel without forcing a context switch.</p>
+            </article>
+            <article class="snapshot-item">
+              <strong>Route</strong>
+              <p>The app maps the customer to a Slack channel and the issue to a reusable or new thread.</p>
+            </article>
+            <article class="snapshot-item">
+              <strong>Resolve</strong>
+              <p>Status, history, and replies stay centralized while the team works in Slack.</p>
+            </article>
           </div>
         </aside>
       </header>
 
-      <main class="layout">
-        <aside class="sidebar">
-          <section class="panel">
-            <div class="panel-heading">
-              <div>
-                <p class="section-label">Demo lab</p>
-                <h2>Run a scenario</h2>
+      <nav class="view-switcher" aria-label="View switcher">
+        <button type="button" class="view-tab active" data-view-tab="showcase">Showcase</button>
+        <button type="button" class="view-tab" data-view-tab="operations">Operations</button>
+      </nav>
+
+      <main>
+        <section id="showcase-view" class="view-panel">
+          <div class="showcase-grid">
+            <section class="panel">
+              <div class="panel-heading">
+                <div>
+                  <p class="section-label">Live demo</p>
+                  <h2>Run a scenario</h2>
+                </div>
+                <button id="reset-demo" class="ghost-button" type="button">Reset demo</button>
               </div>
-              <button id="reset-demo" class="ghost-button" type="button">Reset demo</button>
-            </div>
-            <div class="demo-stack" id="demo-scenarios"></div>
-            <div id="routing-result" class="routing-result hidden"></div>
-          </section>
+              <div class="demo-stack" id="demo-scenarios"></div>
+              <div id="routing-result" class="routing-result hidden"></div>
+            </section>
 
-          <section class="panel">
-            <div class="panel-heading">
-              <div>
-                <p class="section-label">Manual intake</p>
-                <h2>Simulate a customer request</h2>
+            <section class="panel">
+              <div class="panel-heading">
+                <div>
+                  <p class="section-label">Try it yourself</p>
+                  <h2>Simulate a customer request</h2>
+                </div>
               </div>
-            </div>
 
-            <form id="intake-form" class="intake-form">
-              <label>
-                Customer name
-                <input id="customerName" name="customerName" placeholder="Maya Patel" required />
-              </label>
-              <label>
-                Order ID
-                <input id="orderId" name="orderId" placeholder="ORD-10024" required />
-              </label>
-              <label>
-                Source
-                <select id="source" name="source">
-                  <option value="x">X</option>
-                  <option value="sms">SMS</option>
-                  <option value="slack">Slack</option>
-                  <option value="instagram">Instagram</option>
-                  <option value="facebook">Facebook</option>
-                  <option value="phone">Phone</option>
-                </select>
-              </label>
-              <label>
-                Issue type
-                <select id="issueType" name="issueType">
-                  <option value="order_status">Order status</option>
-                  <option value="address_change">Address change</option>
-                  <option value="refund">Refund</option>
-                  <option value="general_support">General support</option>
-                </select>
-              </label>
-              <label>
-                Priority
-                <select id="priority" name="priority">
-                  <option value="medium">Medium</option>
-                  <option value="high">High</option>
-                  <option value="low">Low</option>
-                </select>
-              </label>
-              <label>
-                Handle or phone
-                <input id="handle" name="handle" placeholder="@customerhandle or +1..." />
-              </label>
-              <label>
-                Email
-                <input id="email" name="email" type="email" placeholder="customer@example.com" />
-              </label>
-              <label>
-                Source link
-                <input id="sourceLink" name="sourceLink" placeholder="https://x.com/... or recording URL" />
-              </label>
-              <label class="full-width">
-                Customer message
-                <textarea
-                  id="query"
-                  name="query"
-                  rows="5"
-                  placeholder="Where is my order? Can you update my delivery address?"
-                  required
-                ></textarea>
-              </label>
-              <button type="submit" class="primary-button full-width">Route to Slack</button>
-            </form>
-          </section>
-
-          <section class="panel">
-            <div class="panel-heading">
-              <div>
-                <p class="section-label">Storyline</p>
-                <h2>What judges should notice</h2>
-              </div>
-            </div>
-            <ul class="story-list">
-              <li>Customers stay in SMS or X and never have to move into email.</li>
-              <li>Agents work from Slack while ticket state stays centralized here.</li>
-              <li>Closed issues never muddy old threads. A new follow-up creates a fresh thread.</li>
-            </ul>
-          </section>
-        </aside>
-
-        <section class="workspace">
-          <div class="metrics" id="metrics"></div>
+              <form id="intake-form" class="intake-form">
+                <label>
+                  Customer name
+                  <input id="customerName" name="customerName" placeholder="Maya Patel" required />
+                </label>
+                <label>
+                  Order ID
+                  <input id="orderId" name="orderId" placeholder="ORD-10024" required />
+                </label>
+                <label>
+                  Source
+                  <select id="source" name="source">
+                    <option value="x">X</option>
+                    <option value="sms">SMS</option>
+                    <option value="slack">Slack</option>
+                    <option value="instagram">Instagram</option>
+                    <option value="facebook">Facebook</option>
+                    <option value="phone">Phone</option>
+                  </select>
+                </label>
+                <label>
+                  Issue type
+                  <select id="issueType" name="issueType">
+                    <option value="order_status">Order status</option>
+                    <option value="address_change">Address change</option>
+                    <option value="refund">Refund</option>
+                    <option value="general_support">General support</option>
+                  </select>
+                </label>
+                <label>
+                  Priority
+                  <select id="priority" name="priority">
+                    <option value="medium">Medium</option>
+                    <option value="high">High</option>
+                    <option value="low">Low</option>
+                  </select>
+                </label>
+                <label>
+                  Handle or phone
+                  <input id="handle" name="handle" placeholder="@customerhandle or +1..." />
+                </label>
+                <label>
+                  Email
+                  <input id="email" name="email" type="email" placeholder="customer@example.com" />
+                </label>
+                <label>
+                  Source link
+                  <input id="sourceLink" name="sourceLink" placeholder="https://x.com/... or recording URL" />
+                </label>
+                <label class="full-width">
+                  Customer message
+                  <textarea
+                    id="query"
+                    name="query"
+                    rows="5"
+                    placeholder="Where is my order? Can you update my delivery address?"
+                    required
+                  ></textarea>
+                </label>
+                <button type="submit" class="primary-button full-width">Route to Slack</button>
+              </form>
+            </section>
+          </div>
 
           <section class="workflow-strip">
             <article class="workflow-step">
               <span>1</span>
               <div>
                 <strong>Capture</strong>
-                <p>Normalize inbound SMS or X messages into a common ticket model.</p>
+                <p>Normalize inbound SMS or social messages into a common support ticket model.</p>
               </div>
             </article>
             <article class="workflow-step">
               <span>2</span>
               <div>
                 <strong>Route</strong>
-                <p>Map the customer to a Slack channel and the issue to a thread.</p>
+                <p>Map the customer to a Slack channel and the issue to a reusable or new thread.</p>
               </div>
             </article>
             <article class="workflow-step">
               <span>3</span>
               <div>
                 <strong>Resolve</strong>
-                <p>Change ticket status, mirror Slack signals, and reply in the original channel.</p>
+                <p>Track status, mirror Slack signals, and reply through the original customer channel.</p>
               </div>
             </article>
           </section>
 
-          <div class="board">
-            <section class="panel">
-              <div class="panel-heading">
-                <div>
-                  <p class="section-label">Operations</p>
-                  <h2>Tickets</h2>
-                </div>
-              </div>
-              <div class="filter-row" id="ticket-filters"></div>
-              <div id="conversation-list" class="conversation-list"></div>
-            </section>
-
-            <section class="panel detail-panel">
-              <div class="panel-heading">
-                <div>
-                  <p class="section-label">Slack mirror</p>
-                  <h2>Ticket detail</h2>
-                </div>
-              </div>
-              <div id="conversation-detail" class="empty-state">
-                Select a ticket to inspect the Slack route, status history, and reply flow.
-              </div>
-            </section>
-          </div>
-
           <section class="panel">
             <div class="panel-heading">
               <div>
-                <p class="section-label">Customer memory</p>
-                <h2>Customer registry</h2>
+                <p class="section-label">Why it matters</p>
+                <h2>Built for brands that want better support without bigger overhead</h2>
               </div>
             </div>
-            <div id="customer-list" class="customer-list"></div>
+            <div class="value-grid">
+              <article class="value-card">
+                <h3>For customers</h3>
+                <p>They can ask for help from the channel they are already using instead of moving into email or waiting on hold.</p>
+              </article>
+              <article class="value-card">
+                <h3>For support teams</h3>
+                <p>They stay in Slack, collaborate in threads, and avoid juggling disconnected support tools.</p>
+              </article>
+              <article class="value-card">
+                <h3>For the business</h3>
+                <p>Identity, routing, ticket state, and support history stay in one operational system.</p>
+              </article>
+            </div>
           </section>
+        </section>
+
+        <section id="operations-view" class="view-panel hidden">
+          <div class="workspace">
+            <div class="metrics" id="metrics"></div>
+
+            <div class="board">
+              <section class="panel">
+                <div class="panel-heading">
+                  <div>
+                    <p class="section-label">Operations</p>
+                    <h2>Tickets</h2>
+                  </div>
+                </div>
+                <div class="filter-row" id="ticket-filters"></div>
+                <div id="conversation-list" class="conversation-list"></div>
+              </section>
+
+              <section class="panel detail-panel">
+                <div class="panel-heading">
+                  <div>
+                    <p class="section-label">Slack mirror</p>
+                    <h2>Ticket detail</h2>
+                  </div>
+                </div>
+                <div id="conversation-detail" class="empty-state">
+                  Select a ticket to inspect the Slack route, status history, and reply flow.
+                </div>
+              </section>
+            </div>
+
+            <section class="panel">
+              <div class="panel-heading">
+                <div>
+                  <p class="section-label">Customer memory</p>
+                  <h2>Customer registry</h2>
+                </div>
+              </div>
+              <div id="customer-list" class="customer-list"></div>
+            </section>
+          </div>
         </section>
       </main>
     </div>
