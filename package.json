@@ -1,0 +1,11 @@
+{
+  "name": "cs-simplified",
+  "version": "1.0.0",
+  "description": "CS Simplified: a simplified multi modal customer support demo app.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "start:portable": "powershell -ExecutionPolicy Bypass -File .\\scripts\\start-demo.ps1"
+  },
+  "license": "MIT"
+}

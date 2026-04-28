@@ -1,0 +1,372 @@
+{
+  "lastIds": {
+    "customer": 3,
+    "conversation": 3,
+    "message": 11,
+    "delivery": 3,
+    "slackChannel": 3,
+    "slackThread": 3,
+    "statusEvent": 6
+  },
+  "customers": [
+    {
+      "id": 1,
+      "name": "Maya Patel",
+      "email": "maya.patel@example.com",
+      "phone": "+1-312-555-0144",
+      "tier": "vip",
+      "handles": [
+        {
+          "source": "x",
+          "value": "@mayaorders"
+        }
+      ],
+      "slackChannelId": 1,
+      "createdAt": "2026-04-28T09:00:00.000Z"
+    },
+    {
+      "id": 2,
+      "name": "Jordan Lee",
+      "email": "jordan.lee@example.com",
+      "phone": "+1-415-555-0118",
+      "tier": "standard",
+      "handles": [
+        {
+          "source": "sms",
+          "value": "+1-415-555-0118"
+        }
+      ],
+      "slackChannelId": 2,
+      "createdAt": "2026-04-28T09:15:00.000Z"
+    },
+    {
+      "id": 3,
+      "name": "Nina Gomez",
+      "email": "nina.gomez@example.com",
+      "phone": "+1-206-555-0140",
+      "tier": "standard",
+      "handles": [
+        {
+          "source": "x",
+          "value": "@ninagstyle"
+        }
+      ],
+      "slackChannelId": 3,
+      "createdAt": "2026-04-28T09:18:00.000Z"
+    }
+  ],
+  "slackChannels": [
+    {
+      "id": 1,
+      "name": "acct-maya-patel-slack",
+      "externalChannelId": "C100001",
+      "customerId": 1,
+      "createdAt": "2026-04-28T09:00:00.000Z"
+    },
+    {
+      "id": 2,
+      "name": "acct-jordan-lee-slack",
+      "externalChannelId": "C100002",
+      "customerId": 2,
+      "createdAt": "2026-04-28T09:15:00.000Z"
+    },
+    {
+      "id": 3,
+      "name": "acct-nina-gomez-slack",
+      "externalChannelId": "C100003",
+      "customerId": 3,
+      "createdAt": "2026-04-28T09:18:00.000Z"
+    }
+  ],
+  "slackThreads": [
+    {
+      "id": 1,
+      "slackChannelId": 1,
+      "externalThreadRef": "1714294800.100100",
+      "orderId": "ORD-10024",
+      "conversationId": 1,
+      "threadStatus": "open",
+      "reactions": [
+        "eyes"
+      ],
+      "createdAt": "2026-04-28T09:02:00.000Z",
+      "closedAt": null
+    },
+    {
+      "id": 2,
+      "slackChannelId": 2,
+      "externalThreadRef": "1714295700.100200",
+      "orderId": "ORD-10081",
+      "conversationId": 2,
+      "threadStatus": "open",
+      "reactions": [
+        "speech_balloon"
+      ],
+      "createdAt": "2026-04-28T09:17:00.000Z",
+      "closedAt": null
+    },
+    {
+      "id": 3,
+      "slackChannelId": 3,
+      "externalThreadRef": "1714296120.100300",
+      "orderId": "ORD-10333",
+      "conversationId": 3,
+      "threadStatus": "closed",
+      "reactions": [
+        "white_check_mark"
+      ],
+      "createdAt": "2026-04-28T09:21:00.000Z",
+      "closedAt": "2026-04-28T09:55:00.000Z"
+    }
+  ],
+  "conversations": [
+    {
+      "id": 1,
+      "customerId": 1,
+      "orderId": "ORD-10024",
+      "source": "x",
+      "subject": "Where is my shipment?",
+      "issueType": "order_status",
+      "priority": "high",
+      "status": "assigned",
+      "assignedTo": "Ava",
+      "summary": "Customer wants an ETA after tagging the brand on X.",
+      "slackChannelId": 1,
+      "slackThreadId": 1,
+      "latestMessageAt": "2026-04-28T09:06:00.000Z",
+      "createdAt": "2026-04-28T09:02:00.000Z",
+      "resolvedAt": null,
+      "closedAt": null
+    },
+    {
+      "id": 2,
+      "customerId": 2,
+      "orderId": "ORD-10081",
+      "source": "sms",
+      "subject": "Need delivery address change",
+      "issueType": "address_change",
+      "priority": "medium",
+      "status": "waiting_on_customer",
+      "assignedTo": "Rina",
+      "summary": "Address update is blocked until the customer confirms identity.",
+      "slackChannelId": 2,
+      "slackThreadId": 2,
+      "latestMessageAt": "2026-04-28T09:20:00.000Z",
+      "createdAt": "2026-04-28T09:17:00.000Z",
+      "resolvedAt": null,
+      "closedAt": null
+    },
+    {
+      "id": 3,
+      "customerId": 3,
+      "orderId": "ORD-10333",
+      "source": "x",
+      "subject": "Refund timing question",
+      "issueType": "refund",
+      "priority": "low",
+      "status": "closed",
+      "assignedTo": "Ava",
+      "summary": "Refund ETA was shared and the conversation is complete.",
+      "slackChannelId": 3,
+      "slackThreadId": 3,
+      "latestMessageAt": "2026-04-28T09:55:00.000Z",
+      "createdAt": "2026-04-28T09:21:00.000Z",
+      "resolvedAt": "2026-04-28T09:48:00.000Z",
+      "closedAt": "2026-04-28T09:55:00.000Z"
+    }
+  ],
+  "messages": [
+    {
+      "id": 1,
+      "conversationId": 1,
+      "authorType": "customer",
+      "direction": "inbound",
+      "body": "Hi, I tagged your support handle on X. Can you tell me when order ORD-10024 will arrive?",
+      "source": "x",
+      "sourceLink": "https://x.com/acme_support/status/10024",
+      "createdAt": "2026-04-28T09:02:00.000Z"
+    },
+    {
+      "id": 2,
+      "conversationId": 1,
+      "authorType": "system",
+      "direction": "internal",
+      "body": "Customer identity matched using known X handle. Routed into #acct-maya-patel-slack.",
+      "source": "slack",
+      "sourceLink": "",
+      "createdAt": "2026-04-28T09:02:30.000Z"
+    },
+    {
+      "id": 3,
+      "conversationId": 1,
+      "authorType": "agent",
+      "direction": "internal",
+      "body": "Warehouse scan completed. Agent Ava is preparing an ETA update.",
+      "source": "slack",
+      "sourceLink": "",
+      "createdAt": "2026-04-28T09:06:00.000Z"
+    },
+    {
+      "id": 4,
+      "conversationId": 2,
+      "authorType": "customer",
+      "direction": "inbound",
+      "body": "Need help updating the delivery address for ORD-10081.",
+      "source": "sms",
+      "sourceLink": "",
+      "createdAt": "2026-04-28T09:17:00.000Z"
+    },
+    {
+      "id": 5,
+      "conversationId": 2,
+      "authorType": "agent",
+      "direction": "internal",
+      "body": "Address change requested. Waiting for identity verification.",
+      "source": "slack",
+      "sourceLink": "",
+      "createdAt": "2026-04-28T09:18:00.000Z"
+    },
+    {
+      "id": 6,
+      "conversationId": 2,
+      "authorType": "agent",
+      "direction": "outbound",
+      "body": "Please reply with the last four digits of your phone number so we can safely update the address.",
+      "source": "sms",
+      "sourceLink": "",
+      "createdAt": "2026-04-28T09:20:00.000Z"
+    },
+    {
+      "id": 7,
+      "conversationId": 3,
+      "authorType": "customer",
+      "direction": "inbound",
+      "body": "I sent a DM on X asking when my refund for ORD-10333 will land.",
+      "source": "x",
+      "sourceLink": "https://x.com/acme_support/status/10333",
+      "createdAt": "2026-04-28T09:21:00.000Z"
+    },
+    {
+      "id": 8,
+      "conversationId": 3,
+      "authorType": "agent",
+      "direction": "internal",
+      "body": "Finance confirmed the refund was processed yesterday.",
+      "source": "slack",
+      "sourceLink": "",
+      "createdAt": "2026-04-28T09:42:00.000Z"
+    },
+    {
+      "id": 9,
+      "conversationId": 3,
+      "authorType": "agent",
+      "direction": "outbound",
+      "body": "Your refund has been processed and should appear in 3 to 5 business days.",
+      "source": "x",
+      "sourceLink": "",
+      "createdAt": "2026-04-28T09:48:00.000Z"
+    },
+    {
+      "id": 10,
+      "conversationId": 3,
+      "authorType": "system",
+      "direction": "internal",
+      "body": "Ticket marked resolved. Slack thread updated with :white_check_mark:.",
+      "source": "slack",
+      "sourceLink": "",
+      "createdAt": "2026-04-28T09:48:10.000Z"
+    },
+    {
+      "id": 11,
+      "conversationId": 3,
+      "authorType": "system",
+      "direction": "internal",
+      "body": "Ticket closed after outbound delivery completed.",
+      "source": "slack",
+      "sourceLink": "",
+      "createdAt": "2026-04-28T09:55:00.000Z"
+    }
+  ],
+  "deliveries": [
+    {
+      "id": 1,
+      "conversationId": 1,
+      "targetSource": "x",
+      "status": "pending",
+      "payloadSummary": "ETA update drafted in Slack but not yet sent externally.",
+      "createdAt": "2026-04-28T09:06:00.000Z"
+    },
+    {
+      "id": 2,
+      "conversationId": 2,
+      "targetSource": "sms",
+      "status": "sent",
+      "payloadSummary": "Identity verification request sent back over SMS.",
+      "createdAt": "2026-04-28T09:20:00.000Z"
+    },
+    {
+      "id": 3,
+      "conversationId": 3,
+      "targetSource": "x",
+      "status": "sent",
+      "payloadSummary": "Refund timing answer delivered to the customer on X DM.",
+      "createdAt": "2026-04-28T09:48:00.000Z"
+    }
+  ],
+  "statusEvents": [
+    {
+      "id": 1,
+      "conversationId": 1,
+      "oldStatus": "none",
+      "newStatus": "new",
+      "changedBy": "system",
+      "changeSource": "intake",
+      "createdAt": "2026-04-28T09:02:00.000Z"
+    },
+    {
+      "id": 2,
+      "conversationId": 1,
+      "oldStatus": "new",
+      "newStatus": "assigned",
+      "changedBy": "Ava",
+      "changeSource": "web_app_status",
+      "createdAt": "2026-04-28T09:05:30.000Z"
+    },
+    {
+      "id": 3,
+      "conversationId": 2,
+      "oldStatus": "none",
+      "newStatus": "new",
+      "changedBy": "system",
+      "changeSource": "intake",
+      "createdAt": "2026-04-28T09:17:00.000Z"
+    },
+    {
+      "id": 4,
+      "conversationId": 2,
+      "oldStatus": "new",
+      "newStatus": "waiting_on_customer",
+      "changedBy": "Rina",
+      "changeSource": "web_app_reply",
+      "createdAt": "2026-04-28T09:20:00.000Z"
+    },
+    {
+      "id": 5,
+      "conversationId": 3,
+      "oldStatus": "none",
+      "newStatus": "new",
+      "changedBy": "system",
+      "changeSource": "intake",
+      "createdAt": "2026-04-28T09:21:00.000Z"
+    },
+    {
+      "id": 6,
+      "conversationId": 3,
+      "oldStatus": "new",
+      "newStatus": "closed",
+      "changedBy": "Ava",
+      "changeSource": "web_app_status",
+      "createdAt": "2026-04-28T09:55:00.000Z"
+    }
+  ]
+}
