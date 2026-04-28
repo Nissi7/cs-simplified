@@ -18,7 +18,7 @@ The application stores mutable state in `store.json`. Railway volumes persist wh
 This app expects:
 
 - immutable seed file in the repo:
-  - `data/seed.json`
+  - `seed-data/seed.json`
 - mutable live store in the runtime data directory:
   - `${DATA_DIR}/store.json`
 

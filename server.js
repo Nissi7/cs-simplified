@@ -6,10 +6,11 @@ const { URL } = require("url");
 const PORT = Number(process.env.PORT || 3000);
 const PUBLIC_DIR = path.join(__dirname, "public");
 const APP_DATA_DIR = path.join(__dirname, "data");
+const SEED_DATA_DIR = path.join(__dirname, "seed-data");
 const PERSISTENT_DATA_DIR = process.env.DATA_DIR
   ? path.resolve(process.env.DATA_DIR)
   : APP_DATA_DIR;
-const SEED_PATH = path.join(APP_DATA_DIR, "seed.json");
+const SEED_PATH = path.join(SEED_DATA_DIR, "seed.json");
 const STORE_PATH = path.join(PERSISTENT_DATA_DIR, "store.json");
 
 const MIME_TYPES = {

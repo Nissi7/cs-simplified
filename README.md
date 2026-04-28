@@ -42,7 +42,7 @@ A fuller script lives in [judge-demo-script.md](</C:/Users/josh2/OneDrive/Docume
   Frontend rendering, demo presets, ticket actions, and API calls
 - `public/styles.css`
   Visual presentation for the competition demo
-- `data/seed.json`
+- `seed-data/seed.json`
   Pristine reset state for the demo
 - `data/store.json`
   Working mutable state during local or hosted runs
@@ -74,7 +74,7 @@ This project is now prepared for Railway and supports persistent demo data throu
 
 ### How persistence works
 
-- `data/seed.json` stays in the repo and acts as the pristine reset state
+- `seed-data/seed.json` stays in the repo and acts as the pristine reset state
 - `store.json` becomes the live mutable file
 - If `DATA_DIR` is set, the app writes `store.json` there
 - On Railway, mount your volume to `/app/data` and set:
